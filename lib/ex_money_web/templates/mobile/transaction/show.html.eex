@@ -1,0 +1,76 @@
+<div class="pages">
+  <div class="page navbar-fixed" data-page="show-transaction-screen">
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="left">
+          <a href="#" class="link back back-to-dashboard">
+            <i class="icon icon-back"></i>&nbsp; Back
+          </a>
+        </div>
+        <div class="center">Transaction</div>
+      </div>
+    </div>
+    <div class="page-content">
+      <div class="data-table card">
+        <table>
+          <tbody>
+            <tr>
+              <td colspan="2"><strong>Transaction</strong></td>
+            </tr>
+            <tr>
+              <td class="label-cell">Id</td>
+              <td><%= @transaction.saltedge_transaction_id %></td>
+            </tr>
+            <tr>
+              <td class="label-cell">Description</td>
+              <td><%= @transaction.description %></td>
+            </tr>
+            <tr class="label-cell">
+              <td>Currency</td>
+              <td><%= @transaction.currency_code %></td>
+            </tr>
+            <tr class="label-cell">
+              <td>Account</td>
+              <td><%= @transaction.account.name %></td>
+            </tr>
+            <tr class="label-cell">
+              <td>Category</td>
+              <td><%= @transaction.category.humanized_name %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <%= if @transaction.extra do %>
+        <div class="data-table card">
+          <table>
+            <tbody>
+              <tr>
+                <td colspan="2"><strong>Transaction Info</strong></td>
+              </tr>
+              <tr>
+                <td>Payee</td>
+                <td><%= @transaction.extra["payee"] %></td>
+              </tr>
+              <tr>
+                <td>Information</td>
+                <td><%= @transaction.extra["information"] %></td>
+              </tr>
+              <tr>
+                <td>Time</td>
+                <td><%= @transaction.extra["time"] %></td>
+              </tr>
+              <tr>
+                <td>Posting date</td>
+                <td><%= @transaction.extra["posting_date"] %></td>
+              </tr>
+              <tr>
+                <td>Posting time</td>
+                <td><%= @transaction.extra["posting_time"] %></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

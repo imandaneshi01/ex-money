@@ -1,0 +1,58 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below:</p>
+      <ul>
+        <%= for {attr, message} <- f.errors do %>
+          <li><%= humanize(attr) %> <%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <label for="transaction_account_id">Date</label>
+    <%= date_select(f, :made_on, default: :erlang.date()) %>
+  </div>
+
+  <div class="form-group">
+    <label for="transaction_account_id">Account</label>
+    <%= select(f, :account_id, @accounts) %>
+  </div>
+
+  <div class="form-group">
+    <label class="radio-inline">
+      <%= radio_button(f, :type, "expense", checked: "checked") %> Expense
+    </label>
+    <label class="radio-inline">
+      <%= radio_button(f, :type, "income") %> Income
+    </label>
+  </div>
+
+  <div class="form-group">
+    <label for="transaction_category_id">Category</label>
+    <select class="form-control" id="transaction_category_id" name="transaction[category_id]">
+      <option value="">Choose category</option>
+      <%= for {{name, id}, sub_categories} <- @categories do %>
+        <option value="<%= id %>"><%= name %></option>
+        <%= for {name, id} <- sub_categories do %>
+          <option value="<%= id %>">&nbsp;&nbsp;&nbsp;<%= name %></option>
+        <% end %>
+      <% end %>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="transaction_description">Description</label>
+    <%= text_input f, :description, class: "form-control", placeholder: "Description" %>
+  </div>
+
+  <div class="form-group">
+    <label for="transaction_amount">Amount</label>
+    <%= text_input f, :amount, class: "form-control", placeholder: "Amount" %>
+  </div>
+
+  <div class="form-group">
+    <%= submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>
